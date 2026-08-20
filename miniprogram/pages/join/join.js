@@ -1,0 +1,1 @@
+Page({data:{role:'农户/村民',roles:['农户/村民','研学游客','渠道伙伴','高校团队','其他'],saved:false},roleChange(e){this.setData({role:this.data.roles[e.detail.value]})},submit(e){wx.setStorageSync('ruitu-intent',{...e.detail.value,role:this.data.role,time:Date.now()});this.setData({saved:true});wx.showToast({title:'已保存到本机',icon:'success'})}})
