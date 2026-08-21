@@ -1,0 +1,47 @@
+name: Apply final raster website
+
+on:
+  push:
+    branches:
+      - update/raster-final-20260821
+    paths:
+      - .seed/TRIGGER
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: update/raster-final-20260821
+      - name: Restore final project
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat .seed/part-* > /tmp/guochuang-final.tar.xz.b64
+          base64 -d /tmp/guochuang-final.tar.xz.b64 > /tmp/guochuang-final.tar.xz
+          rm -rf web miniprogram scripts docs
+          rm -f .gitignore README.md ASSET-NOTICE.md LICENSE netlify.toml
+          tar -xJf /tmp/guochuang-final.tar.xz
+          rm -rf .seed
+          rm -f .github/workflows/apply-final.yml
+      - name: Validate
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 scripts/validate_project.py
+          node --check web/app.js
+          find miniprogram -name '*.js' -print0 | xargs -0 -n1 node --check
+      - name: Commit final project
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- web miniprogram scripts docs .github/workflows/validate.yml .gitignore README.md ASSET-NOTICE.md LICENSE netlify.toml
+          git add -u -- .github/workflows/apply-final.yml .seed
+          git commit -m "feat: replace SVG mockups with raster project assets"
+          git push origin HEAD:update/raster-final-20260821
