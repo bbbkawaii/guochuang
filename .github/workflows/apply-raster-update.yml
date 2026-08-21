@@ -1,0 +1,45 @@
+name: Apply raster website update
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/apply-raster-update.yml
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download revised project
+        run: |
+          curl --fail --location --retry 5 --retry-delay 3 \
+            https://ruitu-jiaosu-demo.netlify.app/project-update.tar.xz \
+            --output /tmp/project-update.tar.xz
+          test -s /tmp/project-update.tar.xz
+      - name: Replace project files
+        run: |
+          rm -rf web miniprogram docs scripts
+          rm -f README.md ASSET-NOTICE.md LICENSE netlify.toml .gitignore
+          tar -xJf /tmp/project-update.tar.xz -C .
+          rm -f web/project-update.tar.xz
+          find . -type f -name '*.svg' -delete
+          rm -f scripts/generate_vector_assets.py
+      - name: Validate
+        run: |
+          python3 -m pip install --quiet pillow
+          python3 scripts/validate_project.py
+          node --check web/app.js
+          for file in miniprogram/app.js miniprogram/pages/*/*.js; do node --check "$file"; done
+      - name: Commit revised project
+        run: |
+          rm -f .github/workflows/apply-raster-update.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- README.md ASSET-NOTICE.md LICENSE .gitignore netlify.toml web miniprogram docs scripts .github/workflows/validate.yml
+          git add -u -- .github/workflows/apply-raster-update.yml
+          git commit -m "feat: replace SVG illustrations with raster project visuals"
+          git push
