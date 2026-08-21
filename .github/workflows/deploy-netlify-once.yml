@@ -1,0 +1,56 @@
+name: Deploy final site to Netlify
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/deploy-netlify-once.yml
+
+permissions:
+  contents: write
+
+env:
+  NETLIFY_SITE_ID: d34a3013-fd7f-4652-8f10-97dd974d340f
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Select available Netlify token
+        id: token
+        env:
+          TOKEN_A: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          TOKEN_B: ${{ secrets.NETLIFY_TOKEN }}
+          TOKEN_C: ${{ secrets.NETLIFY_ACCESS_TOKEN }}
+        run: |
+          token="${TOKEN_A:-${TOKEN_B:-${TOKEN_C:-}}}"
+          if [ -n "$token" ]; then
+            echo "available=true" >> "$GITHUB_OUTPUT"
+            echo "NETLIFY_AUTH_TOKEN=$token" >> "$GITHUB_ENV"
+          else
+            echo "available=false" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Deploy production build
+        if: steps.token.outputs.available == 'true'
+        run: npx -y netlify-cli@latest deploy --prod --dir web --site "$NETLIFY_SITE_ID" --message "Final raster visual update"
+      - name: Verify production page
+        run: |
+          for i in $(seq 1 30); do
+            html=$(curl -fsSL https://ruitu-jiaosu-demo.netlify.app/ || true)
+            if printf '%s' "$html" | grep -q '把瑞溪风味，做成年轻人愿意分享的产品' \
+              && ! printf '%s' "$html" | grep -Eq '培训材料汇总|团队测算|用于比赛|概念插画|数据口径说明'; then
+              exit 0
+            fi
+            sleep 10
+          done
+          echo 'Production page did not pass verification.' >&2
+          exit 1
+      - name: Remove one-time workflow
+        run: |
+          rm -f .github/workflows/deploy-netlify-once.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -u -- .github/workflows/deploy-netlify-once.yml
+          git commit -m "chore: remove one-time Netlify deploy workflow"
+          git push
