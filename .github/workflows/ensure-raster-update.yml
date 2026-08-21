@@ -1,0 +1,53 @@
+name: Ensure raster visual update
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/ensure-raster-update.yml
+
+permissions:
+  contents: write
+
+jobs:
+  ensure:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Apply project update when needed
+        run: |
+          if grep -q '把瑞溪风味，做成年轻人愿意分享的产品' web/index.html 2>/dev/null \
+            && test -f web/assets/images/product-tomato-tea.jpg \
+            && ! find . -type f -name '*.svg' | grep -q .; then
+            echo 'Repository already contains the raster update.'
+          else
+            curl --fail --location --retry 8 --retry-delay 5 \
+              https://ruitu-jiaosu-demo.netlify.app/project-update.tar.xz \
+              --output /tmp/project-update.tar.xz
+            test -s /tmp/project-update.tar.xz
+            rm -rf web miniprogram docs scripts
+            rm -f README.md ASSET-NOTICE.md LICENSE netlify.toml .gitignore
+            tar -xJf /tmp/project-update.tar.xz -C .
+            rm -f web/project-update.tar.xz
+            find . -type f -name '*.svg' -delete
+            rm -f scripts/generate_vector_assets.py
+          fi
+      - name: Validate
+        run: |
+          python3 -m pip install --quiet pillow
+          python3 scripts/validate_project.py
+          node --check web/app.js
+          for file in miniprogram/app.js miniprogram/pages/*/*.js; do node --check "$file"; done
+      - name: Commit and clean up
+        run: |
+          rm -f .github/workflows/ensure-raster-update.yml .github/workflows/apply-raster-update.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- README.md ASSET-NOTICE.md LICENSE .gitignore netlify.toml web miniprogram docs scripts .github/workflows/validate.yml
+          git add -u -- .github/workflows/ensure-raster-update.yml .github/workflows/apply-raster-update.yml
+          if git diff --cached --quiet; then
+            echo 'No repository changes required.'
+          else
+            git commit -m "feat: finalize raster project visuals"
+            git push
+          fi
