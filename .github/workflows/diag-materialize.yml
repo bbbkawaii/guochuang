@@ -14,16 +14,18 @@ jobs:
         with:
           ref: main
           fetch-depth: 0
-      - name: Print suffix divergence window
+      - name: Hash suffix 100-char blocks
         shell: bash
         run: |
           set -euo pipefail
           python3 - <<'PY'
           from pathlib import Path
-          import re
+          import re, hashlib
           w=Path('.github/workflows/materialize-from-payload.yml').read_text()
           m=re.search(r"printf '%s' '([A-Za-z0-9+/=]+)' >> \.rebuild/piece-020\.b64", w)
           assert m
           s=m.group(1)
-          print('WINDOW='+s[2400:3300])
+          for off in range(2500,len(s),100):
+              part=s[off:off+100].encode()
+              print(off,len(part),hashlib.sha256(part).hexdigest())
           PY
