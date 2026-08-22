@@ -14,19 +14,16 @@ jobs:
         with:
           ref: main
           fetch-depth: 0
-      - name: Locate missing suffix bytes
+      - name: Print missing suffix window
         shell: bash
         run: |
           set -euo pipefail
           python3 - <<'PY'
           from pathlib import Path
-          import re, hashlib
+          import re
           w=Path('.github/workflows/materialize-from-payload.yml').read_text()
           m=re.search(r"printf '%s' '([A-Za-z0-9+/=]+)' >> \.rebuild/piece-020\.b64",w)
           assert m
           s=m.group(1)
-          print('SUFFIX_SIZE',len(s))
-          for off in range(0,len(s),500):
-              part=s[off:off+500].encode()
-              print('BLOCK',off,len(part),hashlib.sha256(part).hexdigest())
+          print('WINDOW='+s[1950:2150])
           PY
