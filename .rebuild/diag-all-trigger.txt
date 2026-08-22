@@ -1,0 +1,1 @@
+trigger all chunk diagnostics
