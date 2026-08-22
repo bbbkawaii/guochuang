@@ -1,0 +1,55 @@
+name: Repair payload piece 020
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    if: github.event.pull_request.head.ref == 'release/rebuild-clean-payload'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Repair piece 020 exactly
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin release/rebuild-clean-payload
+          git checkout -B release/rebuild-clean-payload origin/release/rebuild-clean-payload
+          python3 - <<'PY'
+          from pathlib import Path
+          import re, subprocess, hashlib
+          target=Path('.rebuild/piece-020.b64')
+          current=target.read_text()
+          expected_hash='c58a955e57498433b38f813a77fe3525fb7315338471f6d251de5523368f4bc3'
+          if len(current)==10000 and hashlib.sha256(current.encode()).hexdigest()==expected_hash:
+              raise SystemExit(0)
+          main_workflow=subprocess.check_output(['git','show','origin/main:.github/workflows/materialize-from-payload.yml'], text=True)
+          m=re.search(r"printf '%s' '([A-Za-z0-9+/=]+)' >> \.rebuild/piece-020\.b64", main_workflow)
+          if not m:
+              raise SystemExit('suffix not found')
+          suffix=m.group(1)
+          if len(current)!=5227 or len(suffix)!=4769:
+              raise SystemExit(f'unexpected lengths: {len(current)}, {len(suffix)}')
+          suffix=suffix[:3431]+'9ncm'+suffix[3431:]
+          repaired=current+suffix
+          got=hashlib.sha256(repaired.encode()).hexdigest()
+          if len(repaired)!=10000 or got!=expected_hash:
+              raise SystemExit(f'repair mismatch: len={len(repaired)} sha={got}')
+          target.write_text(repaired)
+          PY
+          if git diff --quiet -- .rebuild/piece-020.b64; then
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add .rebuild/piece-020.b64
+          git commit -m 'chore: repair payload piece 020 exactly'
+          git push origin HEAD:release/rebuild-clean-payload
