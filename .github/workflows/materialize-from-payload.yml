@@ -38,8 +38,10 @@ jobs:
             mod=$((bytes % 4))
             pads=$(tr -cd '=' < "$f" | wc -c)
             bad=$(tr -d 'A-Za-z0-9+/=' < "$f" | wc -c)
-            echo "PIECE_DIAG $f bytes=$bytes mod4=$mod pads=$pads invalid=$bad"
+            sum=$(sha256sum "$f" | awk '{print $1}')
+            echo "PIECE_DIAG $f bytes=$bytes mod4=$mod pads=$pads invalid=$bad sha256=$sum"
           done
+          echo "PIECE17_HEAD10000_SHA=$(head -c 10000 .rebuild/piece-017.b64 | sha256sum | awk '{print $1}')"
 
           : > /tmp/guochuang-project.b64
           for f in "${pieces[@]}"; do
@@ -51,7 +53,6 @@ jobs:
           rm -rf web miniprogram
           rm -f README.md LICENSE .gitignore netlify.toml
           unzip -q /tmp/guochuang-project.zip -d .
-
           mkdir -p miniprogram/assets/images
           cp -a web/assets/images/. miniprogram/assets/images/
 
@@ -70,12 +71,10 @@ jobs:
             echo 'SVG file found; refusing to publish.' >&2
             exit 1
           fi
-
           if grep -R -n -E '培训材料汇总|不直接等同于|测算情境|待补充实测|仅供参考|数据口径' web miniprogram; then
             echo 'Internal explanatory copy found; refusing to publish.' >&2
             exit 1
           fi
-
           rm -rf .rebuild
           rm -f .github/workflows/materialize-from-payload.yml
 
