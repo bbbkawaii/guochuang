@@ -1,0 +1,36 @@
+<view class="page process-page">
+  <view class="process-hero shell">
+    <image class="process-image" src="/assets/images/workshop.webp" mode="aspectFill" />
+    <view class="process-caption">
+      <text class="caption-kicker">村级酵素工坊</text>
+      <text class="caption-title">把农业副产物，
+转化为可服务农田的生态资源。</text>
+    </view>
+  </view>
+
+  <view class="section">
+    <text class="kicker">技术原理</text>
+    <text class="heading">水解、产酸、后熟</text>
+    <text class="lead">农用酵素以废弃瓜果蔬菜等为发酵底物，在厌氧条件下形成由有益微生物、有机酸与矿质养分共同构成的微生物生态系统。</text>
+    <view class="stage-list">
+      <view class="stage-card card" wx:for="{{stages}}" wx:key="no">
+        <view class="stage-no">{{item.no}}</view>
+        <view><text class="stage-title">{{item.title}}</text><text class="stage-desc">{{item.desc}}</text></view>
+      </view>
+    </view>
+    <view class="acid-card">
+      <text class="acid-title">酸菌协同</text>
+      <text class="acid-desc">酸性环境与有益微生物协同作用，是农用酵素保持稳定活性的关键机制。</text>
+    </view>
+  </view>
+
+  <view class="section flow-section">
+    <text class="kicker light-kicker">工坊流程</text>
+    <text class="heading light-title">一套可参观、可参与、可复制的村级流程。</text>
+    <view class="flow-list">
+      <view class="flow-item" wx:for="{{flow}}" wx:key="*this">
+        <text class="flow-num">0{{index + 1}}</text><text class="flow-title">{{item}}</text>
+      </view>
+    </view>
+  </view>
+</view>

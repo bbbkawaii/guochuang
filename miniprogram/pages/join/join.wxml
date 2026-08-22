@@ -1,1 +1,26 @@
-<view class="page"><view class="hero"><image src="/assets/hero.jpg" mode="aspectFill"/><view class="overlay"><text class="hero-title">一起共建</text><text class="hero-sub">让技术、农业、设计与青年实践在村里相遇</text></view></view><view class="section"><view class="title">共创方向</view><view class="roles"><text class="role">示范田</text><text class="role">酵素工坊</text><text class="role">产品设计</text><text class="role">研学课程</text><text class="role">数字传播</text><text class="role">渠道合作</text></view><button class="button" bindtap="join">提交共创意向</button></view></view>
+<view class="page join-page">
+  <view class="join-hero shell">
+    <view class="join-logo"><image src="/assets/images/logo.jpg" mode="aspectFill" /></view>
+    <text class="join-kicker">瑞土酵生共创计划</text>
+    <text class="join-title">让技术、农业、设计与青年实践，
+在同一片田野里相遇。</text>
+    <text class="join-desc">围绕示范田、酵素工坊、创新产品、研学课程和数字传播，形成村集体、农户、高校与青年共同参与的协作网络。</text>
+  </view>
+
+  <view class="section choice-section">
+    <text class="kicker">选择共创方向</text>
+    <view class="choice-list">
+      <view class="choice-card {{selected === item.id ? 'active' : ''}}" wx:for="{{choices}}" wx:key="id" data-id="{{item.id}}" bindtap="choose">
+        <view class="choice-index">0{{index + 1}}</view>
+        <view><text class="choice-title">{{item.title}}</text><text class="choice-desc">{{item.desc}}</text></view>
+        <view class="choice-check">{{selected === item.id ? '✓' : ''}}</view>
+      </view>
+    </view>
+    <button class="primary-button submit-button" bindtap="submit">记录我的共创意向</button>
+  </view>
+
+  <view class="section partner-section">
+    <text class="kicker partner-kicker">协作主体</text>
+    <view class="partner-row"><text>村集体</text><text>种植农户</text><text>高校团队</text><text>青年实践</text><text>研学机构</text><text>本地渠道</text></view>
+  </view>
+</view>

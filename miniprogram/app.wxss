@@ -1,1 +1,31 @@
-page{background:#f7f3e7;color:#203128;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}.page{padding:24rpx 24rpx 50rpx}.hero{height:410rpx;border-radius:30rpx;overflow:hidden;position:relative}.hero image{width:100%;height:100%}.overlay{position:absolute;inset:0;background:linear-gradient(0deg,rgba(8,35,24,.82),rgba(8,35,24,.05));display:flex;flex-direction:column;justify-content:flex-end;padding:30rpx;color:white}.hero-title{font-size:52rpx;font-weight:800}.hero-sub{font-size:25rpx;margin-top:8rpx}.section{margin-top:28rpx}.title{font-size:36rpx;font-weight:800;color:#174b35;margin-bottom:18rpx}.card{background:#fffdf7;border-radius:26rpx;padding:24rpx;margin-bottom:18rpx;box-shadow:0 8rpx 28rpx rgba(23,75,53,.08)}.card-title{font-size:30rpx;font-weight:700;color:#174b35}.muted{font-size:25rpx;color:#68766d;line-height:1.75;margin-top:8rpx}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16rpx}.step{background:#e8f3e9;border-radius:22rpx;padding:22rpx}.step-num{font-weight:800;color:#2d7756}.chart{width:100%;border-radius:22rpx;background:white;margin-bottom:20rpx}.button{margin-top:24rpx;background:#2d7756;color:white;border-radius:999rpx}.roles{display:flex;flex-wrap:wrap;gap:12rpx}.role{padding:12rpx 18rpx;background:#e8f3e9;color:#174b35;border-radius:999rpx;font-size:24rpx}
+page {
+  --pine: #103c2a;
+  --pine2: #174c36;
+  --leaf: #2f7d59;
+  --cream: #f5f0e3;
+  --paper: #fffdf7;
+  --sage: #e4eee2;
+  --gold: #dcae55;
+  --ink: #1b2b23;
+  --muted: #69766e;
+  --line: rgba(16, 60, 42, .12);
+  background: var(--cream);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 28rpx;
+  line-height: 1.65;
+}
+view, text, image, button, input, textarea, scroll-view { box-sizing: border-box; }
+image { display: block; }
+.page { min-height: 100vh; padding-bottom: 52rpx; }
+.shell { padding: 0 28rpx; }
+.section { padding: 58rpx 28rpx; }
+.kicker { display: block; margin-bottom: 14rpx; color: var(--leaf); font-size: 22rpx; font-weight: 800; letter-spacing: 5rpx; }
+.heading { color: var(--pine); font-family: "Songti SC", STSong, serif; font-size: 52rpx; font-weight: 900; line-height: 1.18; letter-spacing: -2rpx; }
+.lead { margin-top: 20rpx; color: var(--muted); font-size: 27rpx; line-height: 1.8; }
+.card { border: 1rpx solid var(--line); border-radius: 30rpx; background: var(--paper); box-shadow: 0 18rpx 55rpx rgba(16, 60, 42, .08); }
+.pill { display: inline-flex; padding: 8rpx 18rpx; border: 1rpx solid var(--line); border-radius: 999rpx; color: #5c685f; background: rgba(255,255,255,.64); font-size: 22rpx; }
+.primary-button { display: flex; align-items: center; justify-content: center; min-height: 92rpx; margin: 0; padding: 0 32rpx; border: 0; border-radius: 999rpx; color: #fff; background: var(--pine); font-size: 28rpx; font-weight: 800; box-shadow: 0 18rpx 40rpx rgba(16,60,42,.2); }
+.primary-button::after { border: 0; }
+.ghost-button { display: flex; align-items: center; justify-content: center; min-height: 88rpx; margin: 0; border: 1rpx solid rgba(16,60,42,.2); border-radius: 999rpx; color: var(--pine); background: rgba(255,253,247,.72); font-size: 27rpx; font-weight: 800; }
+.ghost-button::after { border: 0; }

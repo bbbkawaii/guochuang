@@ -1,0 +1,17 @@
+.product-intro { padding-bottom: 42rpx; background: var(--paper); }
+.product-list { display: grid; gap: 28rpx; padding-top: 28rpx; }
+.product-card { overflow: hidden; }
+.product-image { width: 100%; height: 590rpx; }
+.product-copy { padding: 34rpx 30rpx 38rpx; }
+.product-card.tomato .product-copy { background: #f5dfd8; }
+.product-card.ice .product-copy { background: #eef0d9; }
+.product-label { display: inline-flex; align-self: flex-start; padding: 8rpx 16rpx; border-radius: 999rpx; color: var(--leaf); background: rgba(255,255,255,.68); font-size: 22rpx; font-weight: 800; }
+.product-title { display: block; margin-top: 20rpx; color: var(--pine); font-family: "Songti SC", STSong, serif; font-size: 42rpx; font-weight: 900; line-height: 1.28; }
+.product-desc { display: block; margin-top: 14rpx; color: #5f6b63; font-size: 25rpx; line-height: 1.75; }
+.tag-row { display: flex; flex-wrap: wrap; gap: 10rpx; margin-top: 25rpx; }
+.extensions { margin-top: 32rpx; color: #fff; background: var(--pine); }
+.extension-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16rpx; margin-top: 24rpx; }
+.extension-card { min-height: 300rpx; padding: 27rpx; border: 1rpx solid rgba(255,255,255,.14); border-radius: 28rpx; background: rgba(255,255,255,.06); }
+.extension-index { color: #e8c26f; font-size: 21rpx; letter-spacing: 3rpx; }
+.extension-title { display: block; margin-top: 58rpx; font-family: "Songti SC", STSong, serif; font-size: 30rpx; font-weight: 900; }
+.extension-desc { display: block; margin-top: 10rpx; color: rgba(255,255,255,.58); font-size: 22rpx; }

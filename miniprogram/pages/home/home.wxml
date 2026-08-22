@@ -1,1 +1,60 @@
-<view class="page"><view class="hero"><image src="/assets/hero.jpg" mode="aspectFill"/><view class="overlay"><text class="hero-title">瑞土酵生</text><text class="hero-sub">农废酵素循环生态种植</text></view></view><view class="section"><view class="title">一条完整的乡村价值链</view><view class="grid"><view class="step"><text class="step-num">01 农废归集</text><view class="muted">残次果、果皮与秸秆分类回收</view></view><view class="step"><text class="step-num">02 标准发酵</text><view class="muted">水解、产酸、后熟</view></view><view class="step"><text class="step-num">03 生态种植</text><view class="muted">服务土壤养护与绿色生产</view></view><view class="step"><text class="step-num">04 产品增值</text><view class="muted">饮品、冰淇淋与伴手礼</view></view></view></view><view class="section"><view class="title">人气产品</view><view class="card"><view class="card-title">酵素番茄鲜汁饮</view><view class="muted">新鲜番茄、清爽口感、乡村打卡。</view></view><view class="card"><view class="card-title">谷物大豆冰淇淋</view><view class="muted">大豆植物基底，融合玉米和大米。</view></view></view></view>
+<view class="page home-page">
+  <view class="hero">
+    <image class="hero-image" src="/assets/images/hero.webp" mode="aspectFill" />
+    <view class="hero-overlay"></view>
+    <view class="hero-copy">
+      <text class="hero-kicker">青年红色筑梦之旅 · 创意组</text>
+      <text class="hero-title">让农废回到土地，
+让乡村长出新价值。</text>
+      <text class="hero-desc">以农用酵素连接农业副产物资源化、生态种植、农产品增值与乡村研学。</text>
+      <view class="hero-actions">
+        <button class="primary-button" bindtap="goProcess">看懂循环方案</button>
+        <button class="ghost-button hero-ghost" bindtap="goProducts">查看产品原型</button>
+      </view>
+    </view>
+  </view>
+
+  <view class="keyword-row">
+    <text class="pill" wx:for="{{keywords}}" wx:key="*this">{{item}}</text>
+  </view>
+
+  <view class="section intro">
+    <text class="kicker">项目缘起</text>
+    <text class="heading">不是再做一个农产品品牌，
+而是先重建一条乡村循环。</text>
+    <text class="lead">瑞溪村拥有数十年的大棚番茄种植基础。项目把农废处理、农用酵素发酵、生态种植、产品设计与青年实践放进同一套协作机制中。</text>
+  </view>
+
+  <view class="section cycle-section">
+    <view class="section-head-row">
+      <view>
+        <text class="kicker">循环方案</text>
+        <text class="heading light-heading">从田间到餐桌，
+再回到土地。</text>
+      </view>
+      <text class="swipe-tip">左右滑动</text>
+    </view>
+    <scroll-view class="cycle-scroll" scroll-x="true" enhanced="true" show-scrollbar="false">
+      <view class="cycle-list">
+        <view class="cycle-card" wx:for="{{cycle}}" wx:key="no">
+          <text class="cycle-no">{{item.no}}</text>
+          <view class="cycle-mark">{{item.mark}}</view>
+          <text class="cycle-title">{{item.title}}</text>
+          <text class="cycle-desc">{{item.desc}}</text>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <view class="section quick-section">
+    <text class="kicker">继续探索</text>
+    <view class="quick-grid">
+      <view class="quick-card card" bindtap="goProcess">
+        <text class="quick-index">01</text><text class="quick-title">技术底座</text><text class="quick-desc">水解、产酸、后熟三阶段</text>
+      </view>
+      <view class="quick-card card" bindtap="goProducts">
+        <text class="quick-index">02</text><text class="quick-title">产品原型</text><text class="quick-desc">番茄鲜饮与谷物冰淇淋</text>
+      </view>
+    </view>
+  </view>
+</view>

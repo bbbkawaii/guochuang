@@ -1,1 +1,31 @@
-{"pages":["pages/home/home","pages/tech/tech","pages/result/result","pages/join/join"],"window":{"navigationBarTitleText":"瑞土酵生","navigationBarBackgroundColor":"#174b35","navigationBarTextStyle":"white","backgroundColor":"#f7f3e7"},"tabBar":{"color":"#6b756e","selectedColor":"#2d7756","backgroundColor":"#fffdf7","list":[{"pagePath":"pages/home/home","text":"首页"},{"pagePath":"pages/tech/tech","text":"技术"},{"pagePath":"pages/result/result","text":"成果"},{"pagePath":"pages/join/join","text":"共创"}]},"sitemapLocation":"sitemap.json"}
+{
+  "pages": [
+    "pages/home/home",
+    "pages/process/process",
+    "pages/products/products",
+    "pages/village/village",
+    "pages/join/join"
+  ],
+  "window": {
+    "navigationBarTitleText": "瑞土酵生",
+    "navigationBarBackgroundColor": "#f5f0e3",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#f5f0e3",
+    "backgroundTextStyle": "dark"
+  },
+  "tabBar": {
+    "color": "#7a867f",
+    "selectedColor": "#174c36",
+    "backgroundColor": "#fffdf7",
+    "borderStyle": "white",
+    "list": [
+      {"pagePath": "pages/home/home", "text": "首页"},
+      {"pagePath": "pages/process/process", "text": "技术"},
+      {"pagePath": "pages/products/products", "text": "产品"},
+      {"pagePath": "pages/village/village", "text": "瑞溪"},
+      {"pagePath": "pages/join/join", "text": "共创"}
+    ]
+  },
+  "sitemapLocation": "sitemap.json",
+  "style": "v2"
+}

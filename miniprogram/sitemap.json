@@ -1,1 +1,4 @@
-{"desc":"瑞土酵生页面索引","rules":[{"action":"allow","page":"*"}]}
+{
+  "desc": "瑞土酵生原生微信小程序",
+  "rules": [{"action": "allow", "page": "*"}]
+}

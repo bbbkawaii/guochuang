@@ -1,0 +1,26 @@
+<view class="page products-page">
+  <view class="section product-intro">
+    <text class="kicker">产品原型</text>
+    <text class="heading">来自土地的好味道，
+变成年轻人愿意带走的记忆。</text>
+    <text class="lead">以生态种植原料为核心，把本地风味、现场体验与村庄故事放进更年轻的消费场景。</text>
+  </view>
+  <view class="product-list shell">
+    <view class="product-card card {{item.tone}}" wx:for="{{products}}" wx:key="title">
+      <image class="product-image" src="{{item.image}}" mode="aspectFill" />
+      <view class="product-copy">
+        <text class="product-label">{{item.label}}</text>
+        <text class="product-title">{{item.title}}</text>
+        <text class="product-desc">{{item.desc}}</text>
+        <view class="tag-row"><text class="pill" wx:for="{{item.tags}}" wx:key="*this" wx:for-item="tag">{{tag}}</text></view>
+      </view>
+    </view>
+  </view>
+  <view class="section extensions">
+    <text class="kicker">延伸场景</text>
+    <view class="extension-grid">
+      <view class="extension-card"><text class="extension-index">01</text><text class="extension-title">生态伴手礼</text><text class="extension-desc">连接番茄、柑橘、枇杷等本地农产与村庄文化。</text></view>
+      <view class="extension-card"><text class="extension-index">02</text><text class="extension-title">一桶酵素研学课</text><text class="extension-desc">从原料辨识到发酵记录，完成一次完整的循环任务。</text></view>
+    </view>
+  </view>
+</view>

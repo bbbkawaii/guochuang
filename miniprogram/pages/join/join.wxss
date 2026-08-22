@@ -1,0 +1,20 @@
+.join-hero { padding-top: 70rpx; padding-bottom: 64rpx; color: #fff; background: var(--pine); }
+.join-logo { width: 104rpx; height: 104rpx; overflow: hidden; border: 10rpx solid rgba(255,255,255,.1); border-radius: 50%; }
+.join-logo image { width: 100%; height: 100%; border-radius: 50%; }
+.join-kicker { display: block; margin-top: 36rpx; color: #aed1b3; font-size: 23rpx; font-weight: 800; letter-spacing: 4rpx; }
+.join-title { display: block; margin-top: 19rpx; font-family: "Songti SC", STSong, serif; font-size: 58rpx; font-weight: 900; line-height: 1.15; white-space: pre-line; }
+.join-desc { display: block; margin-top: 25rpx; color: rgba(255,255,255,.66); font-size: 26rpx; line-height: 1.8; }
+.choice-section { background: var(--cream); }
+.choice-list { display: grid; gap: 14rpx; margin-top: 27rpx; }
+.choice-card { display: grid; grid-template-columns: 58rpx 1fr 52rpx; gap: 18rpx; align-items: center; padding: 26rpx 24rpx; border: 1rpx solid var(--line); border-radius: 27rpx; background: var(--paper); transition: .2s; }
+.choice-card.active { border-color: var(--leaf); background: #e7f0e6; box-shadow: 0 14rpx 38rpx rgba(16,60,42,.1); }
+.choice-index { color: var(--gold); font-size: 21rpx; font-weight: 900; letter-spacing: 2rpx; }
+.choice-title { display: block; color: var(--pine); font-family: "Songti SC", STSong, serif; font-size: 31rpx; font-weight: 900; }
+.choice-desc { display: block; margin-top: 6rpx; color: var(--muted); font-size: 22rpx; }
+.choice-check { width: 44rpx; height: 44rpx; display: flex; align-items: center; justify-content: center; border: 1rpx solid var(--line); border-radius: 50%; color: #fff; background: var(--paper); font-size: 25rpx; font-weight: 900; }
+.choice-card.active .choice-check { border-color: var(--leaf); background: var(--leaf); }
+.submit-button { margin-top: 30rpx; width: 100%; }
+.partner-section { color: #fff; background: #092a1e; }
+.partner-kicker { color: #a7cdaa; }
+.partner-row { display: flex; flex-wrap: wrap; gap: 12rpx; margin-top: 24rpx; }
+.partner-row text { padding: 12rpx 18rpx; border: 1rpx solid rgba(255,255,255,.14); border-radius: 999rpx; color: rgba(255,255,255,.68); font-size: 23rpx; }

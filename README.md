@@ -1,12 +1,16 @@
-# 瑞土酵生
+# 瑞土酵生展示网站与原生微信小程序
 
-农废酵素循环生态种植与农产年轻化深加工乡村振兴展示项目。
+本仓库包含：
 
-仓库包含：
+- `web/`：响应式宣传网站，Netlify 发布目录。
+- `miniprogram/`：原生微信小程序，可直接导入微信开发者工具。
 
-- `web/`：响应式宣传网站，可直接部署到 Netlify；
-- `miniprogram/`：原生微信小程序，可直接导入微信开发者工具；
-- 全部配图均为 JPG / PNG 栅格图片，不使用 SVG 示意图；
-- 成果区采用项目资料包中的生态效益、协作关系和落地规划图表。
+## 本地预览网站
 
-在线地址：<https://ruitu-jiaosu-demo.netlify.app>
+```bash
+python3 -m http.server 4173 --directory web
+```
+
+## 小程序
+
+微信开发者工具导入 `miniprogram/`。当前 `appid` 使用 `touristappid`，正式发布时替换为团队 AppID。

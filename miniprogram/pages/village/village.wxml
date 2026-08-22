@@ -1,0 +1,28 @@
+<view class="page village-page">
+  <view class="village-hero">
+    <image class="village-image" src="/assets/images/village.webp" mode="aspectFill" />
+    <view class="village-overlay"></view>
+    <view class="village-title-wrap">
+      <text class="village-kicker">瑞溪故事</text>
+      <text class="village-title">一座有番茄大棚，
+也有千年宋窑古道的村庄。</text>
+    </view>
+  </view>
+
+  <view class="section village-copy">
+    <text class="lead village-lead">原底三甲村于 2019 年与河溪村合并为瑞溪村。这里既有数十年的大棚番茄种植传统，也保留着约 1.5 公里、4000 多级石阶的宋窑古道。</text>
+    <view class="fact-grid">
+      <view class="fact-card card" wx:for="{{facts}}" wx:key="value"><text class="fact-value">{{item.value}}</text><text class="fact-label">{{item.label}}</text></view>
+    </view>
+  </view>
+
+  <view class="section scene-section">
+    <text class="kicker">村庄场景</text>
+    <view class="scene-list">
+      <view class="scene-item" wx:for="{{scenes}}" wx:key="title">
+        <text class="scene-num">0{{index + 1}}</text>
+        <view><text class="scene-title">{{item.title}}</text><text class="scene-desc">{{item.desc}}</text></view>
+      </view>
+    </view>
+  </view>
+</view>

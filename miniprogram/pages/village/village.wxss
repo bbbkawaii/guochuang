@@ -1,0 +1,19 @@
+.village-hero { position: relative; height: 920rpx; overflow: hidden; }
+.village-image { width: 100%; height: 100%; }
+.village-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(5,30,20,.1) 25%, rgba(5,30,20,.88) 92%); }
+.village-title-wrap { position: absolute; left: 30rpx; right: 30rpx; bottom: 52rpx; color: #fff; }
+.village-kicker { display: block; color: #d5ead9; font-size: 23rpx; font-weight: 800; letter-spacing: 4rpx; }
+.village-title { display: block; margin-top: 20rpx; font-family: "Songti SC", STSong, serif; font-size: 58rpx; font-weight: 900; line-height: 1.16; white-space: pre-line; }
+.village-copy { background: var(--paper); }
+.village-lead { margin-top: 0; color: #56645b; }
+.fact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14rpx; margin-top: 32rpx; }
+.fact-card { min-height: 220rpx; padding: 26rpx; }
+.fact-value { display: block; color: var(--leaf); font-family: "Songti SC", STSong, serif; font-size: 40rpx; font-weight: 900; }
+.fact-label { display: block; margin-top: 18rpx; color: var(--muted); font-size: 23rpx; }
+.scene-section { color: #fff; background: var(--pine); }
+.scene-section .kicker { color: #a5cbaa; }
+.scene-list { margin-top: 28rpx; border-top: 1rpx solid rgba(255,255,255,.14); }
+.scene-item { display: grid; grid-template-columns: 58rpx 1fr; gap: 24rpx; padding: 28rpx 0; border-bottom: 1rpx solid rgba(255,255,255,.14); }
+.scene-num { color: #e9c46f; font-size: 21rpx; letter-spacing: 2rpx; }
+.scene-title { display: block; font-family: "Songti SC", STSong, serif; font-size: 31rpx; font-weight: 900; }
+.scene-desc { display: block; margin-top: 8rpx; color: rgba(255,255,255,.58); font-size: 23rpx; line-height: 1.7; }

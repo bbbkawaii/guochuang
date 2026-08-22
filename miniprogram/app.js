@@ -1,1 +1,5 @@
-App({globalData:{name:'瑞土酵生'}})
+App({
+  globalData: {
+    projectName: '瑞土酵生'
+  }
+});

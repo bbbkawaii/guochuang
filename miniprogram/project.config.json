@@ -1,1 +1,16 @@
-{"description":"瑞土酵生原生微信小程序","appid":"touristappid","projectname":"ruitu-jiaosu","compileType":"miniprogram","setting":{"es6":true,"minified":true}}
+{
+  "description": "瑞土酵生比赛展示原生微信小程序",
+  "packOptions": {"ignore": []},
+  "setting": {
+    "urlCheck": false,
+    "es6": true,
+    "enhance": true,
+    "postcss": true,
+    "minified": true,
+    "coverView": true
+  },
+  "compileType": "miniprogram",
+  "appid": "touristappid",
+  "projectname": "ruitu-jiaosu",
+  "miniprogramRoot": "./"
+}
