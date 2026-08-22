@@ -28,7 +28,19 @@ jobs:
           rm -rf .rebuild
           git checkout origin/release/rebuild-clean-payload -- .rebuild
           rm -f .rebuild/trigger.txt
-          cat .rebuild/piece-*.b64 | base64 -d > /tmp/guochuang-project.zip
+
+          shopt -s nullglob
+          pieces=(.rebuild/piece-*.b64)
+          test ${#pieces[@]} -gt 0
+          for f in "${pieces[@]}"; do
+            if ! base64 -d "$f" >/dev/null 2>&1; then
+              echo "INVALID_BASE64_FILE=$f" >&2
+              exit 1
+            fi
+          done
+
+          cat "${pieces[@]}" | base64 -d > /tmp/guochuang-project.zip
+          unzip -tq /tmp/guochuang-project.zip
 
           rm -rf web miniprogram
           rm -f README.md LICENSE .gitignore netlify.toml
