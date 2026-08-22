@@ -14,16 +14,17 @@ jobs:
         with:
           ref: main
           fetch-depth: 0
-      - name: Print missing suffix window
+      - name: Narrow missing suffix location
         shell: bash
         run: |
           set -euo pipefail
           python3 - <<'PY'
           from pathlib import Path
-          import re
+          import re,hashlib
           w=Path('.github/workflows/materialize-from-payload.yml').read_text()
           m=re.search(r"printf '%s' '([A-Za-z0-9+/=]+)' >> \.rebuild/piece-020\.b64",w)
           assert m
           s=m.group(1)
-          print('WINDOW='+s[1950:2150])
+          for off in range(2000,2500,100):
+              print(off,hashlib.sha256(s[off:off+100].encode()).hexdigest(),s[off:off+100])
           PY
