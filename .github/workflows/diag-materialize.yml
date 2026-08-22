@@ -14,18 +14,16 @@ jobs:
         with:
           ref: main
           fetch-depth: 0
-      - name: Hash suffix 100-char blocks
+      - name: Print exact suffix window
         shell: bash
         run: |
           set -euo pipefail
           python3 - <<'PY'
           from pathlib import Path
-          import re, hashlib
+          import re
           w=Path('.github/workflows/materialize-from-payload.yml').read_text()
           m=re.search(r"printf '%s' '([A-Za-z0-9+/=]+)' >> \.rebuild/piece-020\.b64", w)
           assert m
           s=m.group(1)
-          for off in range(2500,len(s),100):
-              part=s[off:off+100].encode()
-              print(off,len(part),hashlib.sha256(part).hexdigest())
+          print('WINDOW='+s[3380:3540])
           PY
