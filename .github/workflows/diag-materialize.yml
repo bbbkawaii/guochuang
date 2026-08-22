@@ -1,0 +1,33 @@
+name: Diagnose materialization assembly
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+
+jobs:
+  diagnose:
+    if: github.event.pull_request.head.ref == 'release/rebuild-clean-payload'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Assemble and hash transport
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin release/rebuild-clean-payload
+          rm -rf .rebuild
+          git checkout origin/release/rebuild-clean-payload -- .rebuild
+          head -c 10000 .rebuild/piece-017.b64 > /tmp/p17 && mv /tmp/p17 .rebuild/piece-017.b64
+          python3 -c "from pathlib import Path; import re; w=Path('.github/workflows/materialize-from-payload.yml').read_text(); m=re.search(r\"printf '%s' '([A-Za-z0-9+/=]+)' >> \\.rebuild/piece-020\\.b64\",w); assert m; p=Path('.rebuild/piece-020.b64'); p.write_text(p.read_text()+m.group(1))"
+          echo "P009=$(sha256sum .rebuild/piece-009.b64 | awk '{print $1}')"
+          echo "P013=$(sha256sum .rebuild/piece-013.b64 | awk '{print $1}')"
+          echo "P014=$(sha256sum .rebuild/piece-014.b64 | awk '{print $1}')"
+          echo "P017=$(sha256sum .rebuild/piece-017.b64 | awk '{print $1}') SIZE=$(wc -c < .rebuild/piece-017.b64)"
+          echo "P020=$(sha256sum .rebuild/piece-020.b64 | awk '{print $1}') SIZE=$(wc -c < .rebuild/piece-020.b64)"
+          cat .rebuild/piece-*.b64 | base64 -d > /tmp/guochuang-project.zip
+          echo "ZIP=$(sha256sum /tmp/guochuang-project.zip | awk '{print $1}') SIZE=$(wc -c < /tmp/guochuang-project.zip)"
+          unzip -tq /tmp/guochuang-project.zip
