@@ -32,6 +32,15 @@ jobs:
           shopt -s nullglob
           pieces=(.rebuild/piece-*.b64)
           test ${#pieces[@]} -gt 0
+          echo "PIECE_COUNT=${#pieces[@]}"
+          for f in "${pieces[@]}"; do
+            bytes=$(wc -c < "$f")
+            mod=$((bytes % 4))
+            pads=$(tr -cd '=' < "$f" | wc -c)
+            bad=$(tr -d 'A-Za-z0-9+/=' < "$f" | wc -c)
+            echo "PIECE_DIAG $f bytes=$bytes mod4=$mod pads=$pads invalid=$bad"
+          done
+
           : > /tmp/guochuang-project.b64
           for f in "${pieces[@]}"; do
             tr -cd 'A-Za-z0-9+/=' < "$f" >> /tmp/guochuang-project.b64
