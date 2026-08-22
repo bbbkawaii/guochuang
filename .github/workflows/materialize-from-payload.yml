@@ -44,6 +44,8 @@ jobs:
           rm -rf web miniprogram
           rm -f README.md LICENSE .gitignore netlify.toml
           unzip -q /tmp/guochuang-project.zip -d .
+          mkdir -p miniprogram/assets/images
+          cp -a web/assets/images/. miniprogram/assets/images/
 
           test -s web/index.html
           test -s web/styles.css
