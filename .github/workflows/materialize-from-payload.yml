@@ -32,14 +32,11 @@ jobs:
           shopt -s nullglob
           pieces=(.rebuild/piece-*.b64)
           test ${#pieces[@]} -gt 0
+          : > /tmp/guochuang-project.b64
           for f in "${pieces[@]}"; do
-            if ! base64 -d "$f" >/dev/null 2>&1; then
-              echo "INVALID_BASE64_FILE=$f" >&2
-              exit 1
-            fi
+            tr -cd 'A-Za-z0-9+/=' < "$f" >> /tmp/guochuang-project.b64
           done
-
-          cat "${pieces[@]}" | base64 -d > /tmp/guochuang-project.zip
+          base64 -d /tmp/guochuang-project.b64 > /tmp/guochuang-project.zip
           unzip -tq /tmp/guochuang-project.zip
 
           rm -rf web miniprogram
