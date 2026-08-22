@@ -14,7 +14,7 @@ jobs:
         with:
           ref: main
           fetch-depth: 0
-      - name: Locate remaining suffix deletion
+      - name: Narrow final suffix deletion
         shell: bash
         run: |
           set -euo pipefail
@@ -26,8 +26,7 @@ jobs:
           assert m
           s=m.group(1)
           s=s[:2361]+'YWdlcy9w'+s[2361:]
-          print('SIZE',len(s))
-          for off in range(0,len(s),500):
-              part=s[off:off+500].encode()
-              print('BLOCK',off,len(part),hashlib.sha256(part).hexdigest())
+          for off in range(3000,3500,100):
+              part=s[off:off+100]
+              print(off,hashlib.sha256(part.encode()).hexdigest(),part)
           PY
