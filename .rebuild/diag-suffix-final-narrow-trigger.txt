@@ -1,0 +1,1 @@
+trigger final narrow suffix diagnostics
