@@ -14,13 +14,12 @@ jobs:
         with:
           ref: main
           fetch-depth: 0
-      - name: Hash piece 009 micro segments
+      - name: Print piece 009 corrupt window
         shell: bash
         run: |
           set -euo pipefail
           git fetch origin release/rebuild-clean-payload
           git show origin/release/rebuild-clean-payload:.rebuild/piece-009.b64 > /tmp/p9
-          echo "SIZE=$(wc -c < /tmp/p9)"
-          for i in $(seq 0 9); do
-            dd if=/tmp/p9 bs=10 skip=$((840+i)) count=1 status=none | sha256sum | awk -v i="$i" '{print "MICRO" i "=" $1}'
-          done
+          printf 'WINDOW='
+          dd if=/tmp/p9 bs=1 skip=8460 count=10 status=none
+          printf '\n'
